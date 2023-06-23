@@ -1,0 +1,23 @@
+
+GET http://localhost:5050/cooksCandidates
+
+
+#######
+
+
+POST http://localhost:5050/cooksCandidates HTTP/1.1
+content-type: application/json
+
+{
+  "firstName": "Lorenzo",
+  "lastName": "Verdi",
+  "email": "test3@hotmail.com",
+  "phone" : "334/1234567",
+  "curriculum": "file.docs"
+}
+
+
+#######
+
+
+DELETE  http://localhost:5050/cooksCandidates/6495efb7585a6ed38a660d3d
