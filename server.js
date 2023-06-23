@@ -1,8 +1,10 @@
-//importiamo le librerie express e mongoose
+//importiamo le librerie
 import express from "express";
 import mongoose from "mongoose";
 import cors from 'cors';
 import dotenv from 'dotenv';
+import cooksCandadatesRoute from "./routes/cooksCandidatesRoute.js";
+import usersRoute from "./routes/usersRoute.js";
 
 dotenv.config();
 
@@ -12,6 +14,9 @@ const server = express();
 
 server.use(express.json());
 server.use(cors());
+
+server.use('/', cooksCandadatesRoute);
+server.use('/', usersRoute);
 
 
 //metodo di connessione al DB

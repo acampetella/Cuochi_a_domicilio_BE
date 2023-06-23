@@ -11,7 +11,8 @@ const UserSchema = new Schema({
     },
     birthDate: {
         type: String,
-        required: false
+        required: false,
+        default: ''
     },
     email: {
         type: String,
@@ -20,11 +21,13 @@ const UserSchema = new Schema({
     },
     avatar: {
         type: String,
-        required: false
+        required: false,
+        default: ''
     },
     cover: {
         type: String,
-        required: false
+        required: false,
+        default: ''
     },
     password: {
         type: String,
