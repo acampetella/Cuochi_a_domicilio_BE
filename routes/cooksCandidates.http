@@ -20,4 +20,4 @@ content-type: application/json
 #######
 
 
-DELETE  http://localhost:5050/cooksCandidates/6495efb7585a6ed38a660d3d
+DELETE  http://localhost:5050/cooksCandidates/6495f2cf2fe75e79432b6095
