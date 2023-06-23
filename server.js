@@ -2,6 +2,9 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const PORT = 5050;
 
@@ -12,7 +15,7 @@ server.use(cors());
 
 
 //metodo di connessione al DB
-mongoose.connect('mongodb+srv://pibedepiombo:Xsg0ewBHSCPFMrMm@homecooks.gft6qba.mongodb.net/',{
+mongoose.connect(process.env.MONGODB_URL,{
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
