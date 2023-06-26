@@ -1,0 +1,25 @@
+GET http://localhost:5050/menus/64997ab6c6005351d3dc333c
+
+
+#######
+
+
+POST http://localhost:5050/menus/64997ab6c6005351d3dc333c HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Menù estate 2",
+  "price": 20,
+  "courses": [
+    {"courseName": "Insalata di mare", "courseType": "antipasto"},
+    {"courseName": "pennette al pesto", "courseType": "primo"},
+    {"courseName": "Bistecca di tonno", "courseType": "secondo"},
+    {"courseName": "Insalata", "courseType": "contorno"}
+  ]
+}
+
+
+#######
+
+
+DELETE  http://localhost:5050/menus/6499ac36ca5b6311417ff751

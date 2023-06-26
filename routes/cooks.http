@@ -1,0 +1,38 @@
+
+GET http://localhost:5050/cooks
+
+
+#######
+
+GET http://localhost:5050/cooks/64997ab6c6005351d3dc333c
+
+#######
+
+
+POST http://localhost:5050/cooks HTTP/1.1
+content-type: application/json
+
+{
+  "firstName": "Giuseppe",
+  "lastName": "Libero",
+  "email": "giuseppe.libero@gmail.com",
+  "password": "tallaro456"
+}
+
+
+#######
+
+PATCH  http://localhost:5050/cooks/64997ab6c6005351d3dc333c HTTP/1.1
+content-type: application/json
+
+{
+  "description": "Sono bravissimo",
+  "towns": ["Roma", "Viterbo"],
+  "available": true
+}
+
+
+#######
+
+
+DELETE  http://localhost:5050/cooks/649979e1b9def7b2405ad9ca

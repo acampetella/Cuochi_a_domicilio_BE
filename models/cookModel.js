@@ -13,16 +13,18 @@ const CookSchema = new Schema({
     },
     towns: [{
         type: String,
-        required: false
+        required: false,
+        default: []
     }],
-    avalilable: {
-        trype: Boolean,
+    available: {
+        type: Boolean,
         required: false,
         default: false
     },
     personalLinks: [{
         type: String,
-        required: false
+        required: false,
+        default: []
     }],
     menus: [{
         type: mongoose.Schema.Types.ObjectId,
