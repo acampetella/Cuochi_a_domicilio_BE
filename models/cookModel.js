@@ -20,6 +20,10 @@ const CookSchema = new Schema({
         required: false,
         default: false
     },
+    personalLinks: [{
+        type: String,
+        required: false
+    }],
     menus: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'MenuModel',

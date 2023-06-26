@@ -89,7 +89,7 @@ users.post('/users', [usersValidation, usersChangeValidation, usersBirthDateVali
             avatar: req.body.avatar,
             cover: req.body.cover,
             password: hashedPassword,
-            contacts: req.body.contacts
+            phones: req.body.phones
         });
         await user.save();
         res.status(201).send({

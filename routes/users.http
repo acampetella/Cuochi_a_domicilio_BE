@@ -4,7 +4,7 @@ GET http://localhost:5050/users
 
 #######
 
-GET http://localhost:5050/users/6495f012585a6ed38a660d44
+GET http://localhost:5050/users/649963c984aab1801d869dd9
 
 #######
 
@@ -13,25 +13,26 @@ POST http://localhost:5050/users HTTP/1.1
 content-type: application/json
 
 {
-  "firstName": "Veronica",
-  "lastName": "Castro",
-  "email": "veronica.castro@hotmail.com",
-  "password": "veronica123",
-  "birthDate": "1982-04-05"
+  "firstName": "Andrea",
+  "lastName": "Campetella",
+  "email": "andrea.campetella@libero.it",
+  "password": "tallaro123",
+  "birthDate": "1974-07-28",
+  "phones": ["329/6266651"]
 }
 
 
 #######
 
-PATCH  http://localhost:5050/users/6495cd72ff67ee5d497b5b82 HTTP/1.1
+PATCH  http://localhost:5050/users/6499623ae33912dfab18b793 HTTP/1.1
 content-type: application/json
 
 {
-  "birthDate": "2003-06-23"
+  "phones": ["334/1234567", "335/7654321"]
 }
 
 
 #######
 
 
-DELETE  http://localhost:5050/users/6495f2992fe75e79432b608d
+DELETE  http://localhost:5050/users/649963c984aab1801d869dd9
