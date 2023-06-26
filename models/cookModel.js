@@ -15,8 +15,8 @@ const CookSchema = new Schema({
         type: String,
         required: false
     }],
-    avalilable: {
-        trype: Boolean,
+    available: {
+        type: Boolean,
         required: false,
         default: false
     },

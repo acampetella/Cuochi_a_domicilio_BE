@@ -5,6 +5,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import cooksCandadatesRoute from "./routes/cooksCandidatesRoute.js";
 import usersRoute from "./routes/usersRoute.js";
+import cooksRoute from "./routes/cooksRoute.js";
+import menusRoute from "./routes/menusRoute.js";
 
 dotenv.config();
 
@@ -17,6 +19,8 @@ server.use(cors());
 
 server.use('/', cooksCandadatesRoute);
 server.use('/', usersRoute);
+server.use('/', cooksRoute);
+server.use('/', menusRoute);
 
 
 //metodo di connessione al DB
