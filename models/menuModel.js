@@ -28,13 +28,15 @@ const MenuSchema = new Schema(
         courseDescription: {
           type: String,
           required: false,
+          default: ''
         },
         courseImage: {
           type: String,
           required: false,
-        },
-      },
-    ],
+          default: ''
+        }
+      }
+    ]
   },
   {
     timestamps: true,

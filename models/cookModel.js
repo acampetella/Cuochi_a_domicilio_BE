@@ -13,7 +13,8 @@ const CookSchema = new Schema({
     },
     towns: [{
         type: String,
-        required: false
+        required: false,
+        default: []
     }],
     available: {
         type: Boolean,
@@ -22,7 +23,8 @@ const CookSchema = new Schema({
     },
     personalLinks: [{
         type: String,
-        required: false
+        required: false,
+        default: []
     }],
     menus: [{
         type: mongoose.Schema.Types.ObjectId,

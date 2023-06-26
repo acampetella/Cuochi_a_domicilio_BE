@@ -1,6 +1,9 @@
 import express from 'express';
 import CooksModel from '../models/cookModel.js';
 import MenusModel from '../models/menuModel.js';
+import { validationResult } from "express-validator";
+import { menusValidation } from '../middlewares/validators/validateMenus.js';
+import { menusCoursesValidation } from '../middlewares/validators/validateMenusCourses.js';
 
 const menus = express.Router();
 
@@ -36,7 +39,15 @@ menus.get('/menus/:cookId', async (req, res) => {
 });
 
 //inserisco un menù relativo ad un cuoco
-menus.post('/menus/:cookId', async (req, res) => {
+menus.post('/menus/:cookId', [menusValidation, menusCoursesValidation], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).send({
+            message: 'body validation failed',
+            errors: errors.array(),
+            statusCode: 400
+        });
+    }
     try {
         const {cookId} = req.params;
         const cookExists = await CooksModel.findById(cookId);
@@ -57,6 +68,30 @@ menus.post('/menus/:cookId', async (req, res) => {
         res.status(201).send({
             message: 'menu created',
             statusCode: 201
+        });
+    } catch (error) {
+        res.status(500).send({
+            message: 'internal server error',
+            statusCode: 500
+        });
+    }
+});
+
+//elimino uno specifico menù
+menus.delete('/menus/:id', async (req, res) => {
+    try {
+        const {id} = req.params;
+        const menuExists = await MenusModel.findByIdAndDelete(id);
+        if (!menuExists) {
+            return res.status(404).send({
+                message: 'operation failed: menu not found',
+                statusCode: 404
+            });
+        }
+        await CooksModel.findByIdAndUpdate(menuExists.cook, {$pull: {menus: id}});
+        res.status(200).send({
+            message: 'menu removed',
+            statusCode: 200
         });
     } catch (error) {
         res.status(500).send({

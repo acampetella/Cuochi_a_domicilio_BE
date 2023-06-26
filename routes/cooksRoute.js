@@ -15,6 +15,7 @@ cooks.get('/cooks', async (req, res) => {
     try {
         const cooks = await CooksModel.find()
         .populate('user', 'firstName lastName birthDate email avatar cover phones')
+        .populate('menus')
         .limit(pageSize)
         .skip((page - 1) * pageSize);
 
@@ -39,7 +40,8 @@ cooks.get('/cooks/:id', async (req, res) => {
     try {
         const {id} = req.params;
         const cookExists = await CooksModel.findById(id)
-        .populate('user', 'firstName lastName birthDate email avatar cover phones');
+        .populate('user', 'firstName lastName birthDate email avatar cover phones')
+        .populate('menus');
         if (!cookExists) {
             return res.status(404).send({
                 message: 'operation failed: cook not found',
