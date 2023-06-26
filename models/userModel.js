@@ -39,16 +39,10 @@ const UserSchema = new Schema({
         required: false,
         default: 'user'
     },
-    contacts: {
-        phones: [{
-            type: String,
-            required: false
-        }],
-        emails: [{
-            type: String,
-            required: false
-        }]
-    }
+    phones: [{
+        type: String,
+        required: false
+    }],
 }, {
     timestamps: true, strict: true
 });
