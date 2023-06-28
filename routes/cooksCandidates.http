@@ -13,11 +13,11 @@ content-type: application/json
   "lastName": "Verdi",
   "email": "test3@hotmail.com",
   "phone" : "334/1234567",
-  "curriculum": "file.docs"
+  "resume": "file.docs"
 }
 
 
 #######
 
 
-DELETE  http://localhost:5050/cooksCandidates/6495f2cf2fe75e79432b6095
+DELETE  http://localhost:5050/cooksCandidates/649be7b77bb13b4b672a1767
