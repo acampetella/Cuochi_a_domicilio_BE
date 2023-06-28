@@ -56,7 +56,7 @@ cooksCandadates.post('/cooksCandidates',cooksCandidatesValidation, async (req, r
             lastName: req.body.lastName,
             email: req.body.email,
             phone: req.body.phone,
-            curriculum: req.body.curriculum
+            resume: req.body.resume
         });
         await cookCandidate.save();
         res.status(201).send({

@@ -18,7 +18,7 @@ const CookCandidateSchema = new Schema({
         type: String,
         required: true
     },
-    curriculum: {
+    resume: {
         type: String,
         required: true
     }
