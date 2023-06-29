@@ -8,6 +8,7 @@ import usersRoute from "./routes/usersRoute.js";
 import cooksRoute from "./routes/cooksRoute.js";
 import menusRoute from "./routes/menusRoute.js";
 import filesUploadRoute from "./routes/filesUploadRoute.js";
+import loginRoute from "./routes/loginRoute.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -31,6 +32,7 @@ server.use('/', usersRoute);
 server.use('/', cooksRoute);
 server.use('/', menusRoute);
 server.use('/', filesUploadRoute);
+server.use('/', loginRoute);
 
 //metodo di connessione al DB
 mongoose.connect(process.env.MONGODB_URL,{
