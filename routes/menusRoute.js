@@ -4,6 +4,7 @@ import MenusModel from '../models/menuModel.js';
 import { validationResult } from "express-validator";
 import { menusValidation } from '../middlewares/validators/validateMenus.js';
 import { menusCoursesValidation } from '../middlewares/validators/validateMenusCourses.js';
+import checkToken from '../middlewares/token/verifyToken.js';
 
 const menus = express.Router();
 
@@ -39,7 +40,7 @@ menus.get('/menus/:cookId', async (req, res) => {
 });
 
 //inserisco un menù relativo ad un cuoco
-menus.post('/menus/:cookId', [menusValidation, menusCoursesValidation], async (req, res) => {
+menus.post('/menus/:cookId', [menusValidation, menusCoursesValidation, checkToken], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).send({
@@ -78,7 +79,7 @@ menus.post('/menus/:cookId', [menusValidation, menusCoursesValidation], async (r
 });
 
 //elimino uno specifico menù
-menus.delete('/menus/:id', async (req, res) => {
+menus.delete('/menus/:id', checkToken, async (req, res) => {
     try {
         const {id} = req.params;
         const menuExists = await MenusModel.findByIdAndDelete(id);

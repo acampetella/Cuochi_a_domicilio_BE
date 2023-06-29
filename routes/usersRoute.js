@@ -5,11 +5,12 @@ import { usersValidation } from '../middlewares/validators/validateUsers.js';
 import { usersChangeValidation } from '../middlewares/validators/validateUsersChange.js';
 import { usersBirthDateValidation } from '../middlewares/validators/validateUsersBirthDate.js';
 import bcrypt from 'bcrypt';
+import checkToken from '../middlewares/token/verifyToken.js';
 
 const users = express.Router();
 
 //recupero tutti gli utenti
-users.get('/users', async (req, res) => {
+users.get('/users', checkToken, async (req, res) => {
     const { page = 1, pageSize = 3} = req.query;
     try {
         const users = await UsersModel.find()
@@ -33,7 +34,7 @@ users.get('/users', async (req, res) => {
 });
 
 //recupero uno specifico utente
-users.get('/users/:id', async (req, res) => {
+users.get('/users/:id', checkToken, async (req, res) => {
     try {
         const {id} = req.params;
         const userExists = await UsersModel.findById(id);
@@ -106,7 +107,7 @@ users.post('/users', [usersValidation, usersChangeValidation, usersBirthDateVali
 });
 
 //modifico un utente
-users.patch('/users/:id', [usersChangeValidation, usersBirthDateValidation], async (req, res) => {
+users.patch('/users/:id', [usersChangeValidation, usersBirthDateValidation, checkToken], async (req, res) => {
     try {
         const {id} = req.params;
         const userExists = await UsersModel.findById(id);
@@ -132,7 +133,7 @@ users.patch('/users/:id', [usersChangeValidation, usersBirthDateValidation], asy
 });
 
 //cancello utente
-users.delete('/users/:id', async (req, res) => {
+users.delete('/users/:id', checkToken, async (req, res) => {
     try {
         const {id} = req.params;
         const userExists = await UsersModel.findByIdAndDelete(id);
