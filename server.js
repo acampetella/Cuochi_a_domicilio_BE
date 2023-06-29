@@ -8,13 +8,21 @@ import usersRoute from "./routes/usersRoute.js";
 import cooksRoute from "./routes/cooksRoute.js";
 import menusRoute from "./routes/menusRoute.js";
 import filesUploadRoute from "./routes/filesUploadRoute.js";
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const PORT = 5050;
 
 const server = express();
 
+server.use('/uploads/resumes', express.static(path.join(__dirname, './uploads/resumes')));
+server.use('/uploads/avatars', express.static(path.join(__dirname, './uploads/avatars')));
+server.use('/uploads/covers', express.static(path.join(__dirname, './uploads/covers')));
+server.use('/uploads/courseImages', express.static(path.join(__dirname, './uploads/coursesImages')));
 server.use(express.json());
 server.use(cors());
 
