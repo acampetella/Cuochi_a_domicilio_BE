@@ -6,6 +6,7 @@ import { usersValidation } from '../middlewares/validators/validateUsers.js';
 import { usersChangeValidation } from '../middlewares/validators/validateUsersChange.js';
 import { usersBirthDateValidation } from '../middlewares/validators/validateUsersBirthDate.js';
 import bcrypt from 'bcrypt';
+import checkToken from '../middlewares/token/verifyToken.js';
 
 const cooks = express.Router();
 
@@ -61,7 +62,7 @@ cooks.get('/cooks/:id', async (req, res) => {
 });
 
 //inserimento di un cuoco
-cooks.post('/cooks', [usersValidation, usersChangeValidation, usersBirthDateValidation], 
+cooks.post('/cooks', [usersValidation, checkToken, usersChangeValidation, usersBirthDateValidation], 
     async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -120,7 +121,7 @@ cooks.post('/cooks', [usersValidation, usersChangeValidation, usersBirthDateVali
 });
 
 //modifica di un cuoco
-cooks.patch('/cooks/:id', async (req, res) => {
+cooks.patch('/cooks/:id', checkToken, async (req, res) => {
     try {
         const {id} = req.params;
         const cookExists = await CooksModel.findById(id);
@@ -146,7 +147,7 @@ cooks.patch('/cooks/:id', async (req, res) => {
 });
 
 //cancellazione di un cuoco
-cooks.delete('/cooks/:id', async (req, res) => {
+cooks.delete('/cooks/:id', checkToken, async (req, res) => {
     try {
         const {id} = req.params;
         const cookExists = await CooksModel.findById(id);

@@ -3,6 +3,7 @@ import multer from "multer";
 import cloudinaryModule from "cloudinary";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import dotenv from "dotenv";
+import checkToken from '../middlewares/token/verifyToken.js';
 
 dotenv.config();
 const cloudinary = cloudinaryModule.v2;
@@ -129,7 +130,7 @@ uploads.post(
 
 uploads.post(
     "/cloud/avatarUpload",
-    cloudAvatarsUpload.single("img"),
+    [cloudAvatarsUpload.single("img"), checkToken],
     async (req, res) => {
       try {
         res.status(200).json({ img: req.file.path });
@@ -144,7 +145,7 @@ uploads.post(
 
   uploads.post(
     "/cloud/courseImageUpload",
-    cloudCoursesImagesUpload.single("img"),
+    [cloudCoursesImagesUpload.single("img"), checkToken],
     async (req, res) => {
       try {
         res.status(200).json({ img: req.file.path });
@@ -159,7 +160,7 @@ uploads.post(
 
   uploads.post(
     "/cloud/coverUpload",
-    cloudCoversUpload.single("img"),
+    [cloudCoversUpload.single("img"), checkToken],
     async (req, res) => {
       try {
         res.status(200).json({ img: req.file.path });
@@ -190,7 +191,7 @@ uploads.post(
     }
   });
 
-  uploads.post('/internal/coverUpload', internalCoversUpload.single('img'), 
+  uploads.post('/internal/coverUpload', [internalCoversUpload.single('img'), checkToken], 
     async (req, res) => {
     const url = req.protocol + '://' + req.get('host');
 
@@ -208,7 +209,7 @@ uploads.post(
     }
   });
 
-  uploads.post('/internal/avatarUpload', internalAvatarsUpload.single('img'), 
+  uploads.post('/internal/avatarUpload', [internalAvatarsUpload.single('img'), checkToken], 
     async (req, res) => {
     const url = req.protocol + '://' + req.get('host');
 
@@ -226,7 +227,7 @@ uploads.post(
     }
   });
 
-  uploads.post('/internal/coursesImagesUpload', internalCoursesImagesUpload.single('img'), 
+  uploads.post('/internal/coursesImagesUpload', [internalCoursesImagesUpload.single('img'), checkToken], 
     async (req, res) => {
     const url = req.protocol + '://' + req.get('host');
 

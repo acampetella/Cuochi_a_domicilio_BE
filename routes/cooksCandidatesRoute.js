@@ -2,11 +2,12 @@ import express from 'express';
 import CooksCandidatesModel from '../models/cookCandidateModel.js';
 import { validationResult } from "express-validator";
 import { cooksCandidatesValidation } from '../middlewares/validators/validateCooksCandidates.js';
+import checkToken from '../middlewares/token/verifyToken.js';
 
 const cooksCandadates = express.Router();
 
 //restituzione di tutti i cadidati cuochi
-cooksCandadates.get('/cooksCandidates', async (req, res) => {
+cooksCandadates.get('/cooksCandidates', checkToken, async (req, res) => {
     const { page = 1, pageSize = 3} = req.query;
     try {
         const candidates = await CooksCandidatesModel.find()
@@ -72,7 +73,7 @@ cooksCandadates.post('/cooksCandidates',cooksCandidatesValidation, async (req, r
 });
 
 //cancellazione di un candidato cuoco
-cooksCandadates.delete('/cooksCandidates/:id', async (req, res) => {
+cooksCandadates.delete('/cooksCandidates/:id', checkToken, async (req, res) => {
     try {
         const {id} = req.params;
         const candidateExists = await CooksCandidatesModel.findByIdAndDelete(id);
