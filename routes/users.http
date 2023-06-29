@@ -18,7 +18,7 @@ content-type: application/json
   "email": "andrea.campetella@libero.it",
   "password": "tallaro123",
   "birthDate": "1974-07-28",
-  "phones": ["329/6266651"]
+  "role": "admin"
 }
 
 
