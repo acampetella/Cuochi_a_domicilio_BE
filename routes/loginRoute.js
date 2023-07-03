@@ -30,6 +30,9 @@ login.post("/login", async (req, res) => {
         lastName: user.lastName,
         email: user.email,
         birthDate: user.birthDate,
+        avatar: user.avatar,
+        cover: user.cover,
+        phones: user.phones,
         role: user.role
     }, process.env.SECRET_JWT_KEY, {
         expiresIn: '24h'
