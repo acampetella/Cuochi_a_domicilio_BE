@@ -1,31 +1,22 @@
-import bcrypt from "bcrypt"
 import { Router } from "express"
 import UserModel from "../models/userModel.js";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+import checkToken from '../middlewares/token/verifyToken.js';
 
 dotenv.config();
 
-const login = Router();
+const createNewToken = Router();
 
-login.post("/login", async (req, res) => {
+createNewToken.post("/getNewToken", checkToken, async (req, res) => {
     const user = await UserModel.findOne({email:req.body.email});
     if (!user){
         return res.status(404).send({
-            message:"User not found",
+            message:"Operation failed: user not found",
             statusCode: 404
         });
     }
-    //confronto tra la password inviata dall'utente con quella del DB
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!validPassword) {
-        return res.status(400).send({
-            message:"Password is wrong",
-            statusCode: 400
-        });
-    }
-
-    const token = jwt.sign({
+    const newToken = jwt.sign({
         id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
@@ -39,11 +30,11 @@ login.post("/login", async (req, res) => {
         expiresIn: '24h'
     });
 
-    res.header('Auth', token).status(200).send({
-        message: "Login performed",
+    res.header('Auth', newToken).status(200).send({
+        message: "New token created",
         statusCode: 200,
-        token
+        newToken
     });
 });
 
-export default login;
+export default createNewToken;
