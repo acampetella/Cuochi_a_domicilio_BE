@@ -9,6 +9,7 @@ import cooksRoute from "./routes/cooksRoute.js";
 import menusRoute from "./routes/menusRoute.js";
 import filesUploadRoute from "./routes/filesUploadRoute.js";
 import loginRoute from "./routes/loginRoute.js";
+import createNewTokenRoute from "./routes/createNewTokenRoute.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -33,6 +34,7 @@ server.use('/', cooksRoute);
 server.use('/', menusRoute);
 server.use('/', filesUploadRoute);
 server.use('/', loginRoute);
+server.use('/', createNewTokenRoute);
 
 //metodo di connessione al DB
 mongoose.connect(process.env.MONGODB_URL,{
