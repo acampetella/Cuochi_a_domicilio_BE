@@ -24,11 +24,13 @@ content-type: application/json
 
 #######
 
-PATCH  http://localhost:5050/users/6499623ae33912dfab18b793 HTTP/1.1
+PATCH  http://localhost:5050/users/649db085b56ed6875102c636 HTTP/1.1
 content-type: application/json
 
 {
-  "phones": ["334/1234567", "335/7654321"]
+  "firstName": "Roberto",
+  "lastName": "Rossi",
+  "birthDate": "2023-06-01"
 }
 
 
