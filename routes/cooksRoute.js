@@ -61,6 +61,31 @@ cooks.get('/cooks/:id', async (req, res) => {
     }
 });
 
+//restituzione di un singolo cuoco attraverso l'id utente
+cooks.get('/cooks/byUserId/:userId', async (req, res) => {
+    try {
+        const {userId} = req.params;
+        const cookExists = await CooksModel.findOne({user: userId})
+        .populate('user', 'firstName lastName birthDate email avatar cover phones')
+        .populate('menus');
+        if (!cookExists) {
+            return res.status(404).send({
+                message: 'operation failed: cook not found',
+                statusCode: 404
+            });
+        }
+        res.status(200).send({
+            statusCode: 200,
+            cookExists
+        });
+    } catch (error) {
+        res.status(500).send({
+            message: 'internal server error',
+            statusCode: 500
+        });
+    }
+});
+
 //inserimento di un cuoco
 cooks.post('/cooks', [usersValidation, checkToken, usersChangeValidation, usersBirthDateValidation], 
     async (req, res) => {
