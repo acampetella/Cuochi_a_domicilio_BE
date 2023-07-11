@@ -21,11 +21,18 @@ const CookSchema = new Schema({
         required: false,
         default: false
     },
-    personalLinks: [{
-        type: String,
-        required: false,
-        default: []
-    }],
+    personalLinks: [
+        {
+            linkName: {
+                type: String,
+                required: true
+            },
+            linkSource: {
+                type: String,
+                required: true
+            }
+        }
+    ],
     menus: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'MenuModel',
