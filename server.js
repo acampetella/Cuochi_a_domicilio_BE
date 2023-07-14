@@ -25,7 +25,7 @@ const server = express();
 server.use('/uploads/resumes', express.static(path.join(__dirname, './uploads/resumes')));
 server.use('/uploads/avatars', express.static(path.join(__dirname, './uploads/avatars')));
 server.use('/uploads/covers', express.static(path.join(__dirname, './uploads/covers')));
-server.use('/uploads/courseImages', express.static(path.join(__dirname, './uploads/coursesImages')));
+server.use('/uploads/coursesImages', express.static(path.join(__dirname, './uploads/coursesImages')));
 server.use(express.json());
 server.use(cors());
 
