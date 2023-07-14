@@ -8,6 +8,10 @@ GET http://localhost:5050/cooks/64997ab6c6005351d3dc333c
 
 #######
 
+GET http://localhost:5050/cooks/byUserId/64aae15390ef355fbf9b2f92
+
+#######
+
 
 POST http://localhost:5050/cooks HTTP/1.1
 content-type: application/json
