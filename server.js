@@ -11,6 +11,7 @@ import filesUploadRoute from "./routes/filesUploadRoute.js";
 import loginRoute from "./routes/loginRoute.js";
 import createNewTokenRoute from "./routes/createNewTokenRoute.js";
 import sendMailsRoute from "./routes/sendEmailsRoute.js";
+import requestsRoute from "./routes/requestsRoute.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -37,6 +38,7 @@ server.use('/', filesUploadRoute);
 server.use('/', loginRoute);
 server.use('/', createNewTokenRoute);
 server.use('/', sendMailsRoute);
+server.use('/', requestsRoute);
 
 //metodo di connessione al DB
 mongoose.connect(process.env.MONGODB_URL,{

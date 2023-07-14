@@ -1,0 +1,30 @@
+GET http://localhost:5050/requests
+
+###################
+
+POST http://localhost:5050/requests HTTP/1.1
+content-type: application/json
+
+{
+  "user": "649db085b56ed6875102c636",
+  "cook": "64aae15390ef355fbf9b2f95",
+  "date": "2023-08-05",
+  "from": "20:00",
+  "to": "23:00",
+  "place": {
+    "street": "Via Mario Carotenuto 52/B",
+    "zipCode": "00125",
+    "town": "Roma",
+    "province": "Roma"
+  },
+  "menu": "64b1240dea47d3b567243ce2",
+  "state": "created"
+}
+
+####################
+PATCH http://localhost:5050/requests/64b1ce29c3e1bb7e0efb8177 HTTP/1.1
+content-type: application/json
+
+{
+    "state": "sent"
+}
