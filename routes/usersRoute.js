@@ -153,6 +153,6 @@ users.delete('/users/:id', checkToken, async (req, res) => {
             statusCode: 500
         });
     }
-})
+});
 
 export default users;
