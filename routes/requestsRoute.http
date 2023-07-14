@@ -2,6 +2,21 @@ GET http://localhost:5050/requests
 
 ###################
 
+GET http://localhost:5050/requests/64b1d991e50f84500dec5cf8
+
+###################
+
+
+GET http://localhost:5050/requests/byUserId/649db085b56ed6875102c636
+
+###################
+
+GET http://localhost:5050/requests/byCookId/64aae15390ef355fbf9b2f95
+
+###################
+
+
+
 POST http://localhost:5050/requests HTTP/1.1
 content-type: application/json
 
@@ -22,9 +37,13 @@ content-type: application/json
 }
 
 ####################
-PATCH http://localhost:5050/requests/64b1ce29c3e1bb7e0efb8177 HTTP/1.1
+PATCH http://localhost:5050/requests/64b1d991e50f84500dec5cf8 HTTP/1.1
 content-type: application/json
 
 {
     "state": "sent"
 }
+
+############
+
+DELETE http://localhost:5050/requests/64b1d991e50f84500dec5cf8

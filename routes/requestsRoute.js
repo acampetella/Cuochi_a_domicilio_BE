@@ -17,7 +17,9 @@ requests.get('/requests', checkToken, async (req, res) => {
     try {
         const requests = await RequestsModel.find()
         .limit(pageSize)
-        .skip((page - 1) * pageSize);
+        .skip((page - 1) * pageSize)
+        .populate('user', 'firstName lastName email phones')
+        .populate('menu');
 
         const requestsCount = await RequestsModel.count();
         res.status(200).send({
@@ -39,7 +41,9 @@ requests.get('/requests', checkToken, async (req, res) => {
 requests.get('/requests/:id', checkToken, async (req, res) => {
     const {id} = req.params;
     try {
-        const request = await RequestsModel.findById(id);
+        const request = await RequestsModel.findById(id)
+        .populate('user', 'firstName lastName email phones')
+        .populate('menu');
         res.status(200).send({
             statusCode: 200,
             request
@@ -66,7 +70,9 @@ requests.get('/requests/byUserId/:userId', checkToken, async (req, res) => {
         }
         const requests = await RequestsModel.find({user: userId})
         .limit(pageSize)
-        .skip((page - 1) * pageSize);
+        .skip((page - 1) * pageSize)
+        .populate('user', 'firstName lastName email phones')
+        .populate('menu');
 
         const requestsCount = await RequestsModel.count();
         res.status(200).send({
@@ -98,7 +104,9 @@ requests.get('/requests/byCookId/:cookId', checkToken, async (req, res) => {
         }
         const requests = await RequestsModel.find({cook: cookId})
         .limit(pageSize)
-        .skip((page - 1) * pageSize);
+        .skip((page - 1) * pageSize)
+        .populate('user', 'firstName lastName email phones')
+        .populate('menu');
 
         const requestsCount = await RequestsModel.count();
         res.status(200).send({
@@ -225,6 +233,5 @@ requests.delete('/requests/:id', checkToken, async (req, res) => {
         });
     }
 });
-
 
 export default requests;
