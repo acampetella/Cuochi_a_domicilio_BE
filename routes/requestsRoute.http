@@ -2,7 +2,7 @@ GET http://localhost:5050/requests
 
 ###################
 
-GET http://localhost:5050/requests/64b1e21cd39a4126ec08a402
+GET http://localhost:5050/requests/64b270dd7c4748a7b0f6d204
 
 ###################
 
@@ -33,11 +33,12 @@ content-type: application/json
     "province": "Roma"
   },
   "menu": "64b1240dea47d3b567243ce2",
-  "state": "created"
+  "state": "created",
+  "owner": "user"
 }
 
 ####################
-PATCH http://localhost:5050/requests/64b1e21cd39a4126ec08a402 HTTP/1.1
+PATCH http://localhost:5050/requests/64b270dd7c4748a7b0f6d204 HTTP/1.1
 content-type: application/json
 
 {
@@ -46,4 +47,4 @@ content-type: application/json
 
 ############
 
-DELETE http://localhost:5050/requests/64b1e21cd39a4126ec08a402
+DELETE http://localhost:5050/requests/64b270dd7c4748a7b0f6d204
