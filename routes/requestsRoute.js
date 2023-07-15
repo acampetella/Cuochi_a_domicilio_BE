@@ -1,7 +1,6 @@
 import express from 'express';
 import RequestsModel from '../models/userRequestModel.js';
 import UsersModel from '../models/userModel.js';
-import CooksModel from '../models/cookModel.js';
 import { validationResult } from "express-validator";
 import { requestsValidation } from '../middlewares/validators/validateRequests.js';
 import { requestsDateValidation } from '../middlewares/validators/validateRequestsDate.js';
@@ -12,13 +11,14 @@ import checkToken from '../middlewares/token/verifyToken.js';
 
 const requests = express.Router();
 
-requests.get('/requests', checkToken, async (req, res) => {
+requests.get('/requests', async (req, res) => {
     const { page = 1, pageSize = 3} = req.query;
     try {
         const requests = await RequestsModel.find()
         .limit(pageSize)
         .skip((page - 1) * pageSize)
         .populate('user', 'firstName lastName email phones')
+        .populate('cook', 'firstName lastName email phones')
         .populate('menu');
 
         const requestsCount = await RequestsModel.count();
@@ -38,11 +38,12 @@ requests.get('/requests', checkToken, async (req, res) => {
 
 });
 
-requests.get('/requests/:id', checkToken, async (req, res) => {
+requests.get('/requests/:id', async (req, res) => {
     const {id} = req.params;
     try {
         const request = await RequestsModel.findById(id)
         .populate('user', 'firstName lastName email phones')
+        .populate('cook', 'firstName lastName email phones')
         .populate('menu');
         res.status(200).send({
             statusCode: 200,
@@ -57,7 +58,7 @@ requests.get('/requests/:id', checkToken, async (req, res) => {
 
 });
 
-requests.get('/requests/byUserId/:userId', checkToken, async (req, res) => {
+requests.get('/requests/byUserId/:userId', async (req, res) => {
     const {userId} = req.params;
     const { page = 1, pageSize = 3} = req.query;
     try {
@@ -72,6 +73,7 @@ requests.get('/requests/byUserId/:userId', checkToken, async (req, res) => {
         .limit(pageSize)
         .skip((page - 1) * pageSize)
         .populate('user', 'firstName lastName email phones')
+        .populate('cook', 'firstName lastName email phones')
         .populate('menu');
 
         const requestsCount = await RequestsModel.count();
@@ -91,11 +93,11 @@ requests.get('/requests/byUserId/:userId', checkToken, async (req, res) => {
 
 });
 
-requests.get('/requests/byCookId/:cookId', checkToken, async (req, res) => {
+requests.get('/requests/byCookId/:cookId', async (req, res) => {
     const {cookId} = req.params;
     const { page = 1, pageSize = 3} = req.query;
     try {
-        const cookExists = await CooksModel.findById(cookId);
+        const cookExists = await UsersModel.findById(cookId);
         if (!cookExists) {
             return res.status(404).send({
                 message: 'operation failed: cook not found',
@@ -106,6 +108,7 @@ requests.get('/requests/byCookId/:cookId', checkToken, async (req, res) => {
         .limit(pageSize)
         .skip((page - 1) * pageSize)
         .populate('user', 'firstName lastName email phones')
+        .populate('cook', 'firstName lastName email phones')
         .populate('menu');
 
         const requestsCount = await RequestsModel.count();
@@ -126,7 +129,7 @@ requests.get('/requests/byCookId/:cookId', checkToken, async (req, res) => {
 });
 
 requests.post('/requests', [requestsValidation, requestsDateValidation, requestsFromValidation, 
-    requestsToValidation, requestsStateValidation, checkToken], async (req, res) => {
+    requestsToValidation, requestsStateValidation], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).send({
@@ -156,7 +159,7 @@ requests.post('/requests', [requestsValidation, requestsDateValidation, requests
                 statusCode: 404
             });
         }
-        const cookExists = await CooksModel.findById(req.body.cook);
+        const cookExists = await UsersModel.findById(req.body.cook);
         if (!cookExists) {
             return res.status(404).send({
                 message: 'operation failed: cook not found',
@@ -186,7 +189,7 @@ requests.post('/requests', [requestsValidation, requestsDateValidation, requests
     }
 });
 
-requests.patch('/requests/:id', [requestsStateValidation, checkToken], async (req, res) => {
+requests.patch('/requests/:id', [requestsStateValidation], async (req, res) => {
     const {id} = req.params;
     try {
         const requestExists = await RequestsModel.findById(id);
@@ -212,7 +215,7 @@ requests.patch('/requests/:id', [requestsStateValidation, checkToken], async (re
 
 });
 
-requests.delete('/requests/:id', checkToken, async (req, res) => {
+requests.delete('/requests/:id', async (req, res) => {
     try {
         const {id} = req.params;
         const requestExists = await RequestsModel.findByIdAndDelete(id);

@@ -8,7 +8,7 @@ const RequestSchema = new Schema({
     },
     cook: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'CookModel',
+        ref: 'UserModel',
         required: true
     },
     date: {
