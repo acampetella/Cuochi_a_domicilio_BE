@@ -7,6 +7,7 @@ import { requestsDateValidation } from '../middlewares/validators/validateReques
 import { requestsFromValidation } from '../middlewares/validators/validateRequestsFrom.js';
 import { requestsToValidation } from '../middlewares/validators/validateRequestsTo.js';
 import { requestsStateValidation } from '../middlewares/validators/validateRequestsState.js';
+import { requestsOwnerValidation } from '../middlewares/validators/validateRequestsOwner.js';
 import checkToken from '../middlewares/token/verifyToken.js';
 
 const requests = express.Router();
@@ -129,7 +130,8 @@ requests.get('/requests/byCookId/:cookId', checkToken, async (req, res) => {
 });
 
 requests.post('/requests', [requestsValidation, requestsDateValidation, requestsFromValidation, 
-    requestsToValidation, requestsStateValidation, checkToken], async (req, res) => {
+    requestsToValidation, requestsStateValidation, requestsOwnerValidation, checkToken], 
+    async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).send({
@@ -174,7 +176,8 @@ requests.post('/requests', [requestsValidation, requestsDateValidation, requests
             to: req.body.to,
             place: req.body.place,
             menu: req.body.menu,
-            state: req.body.state
+            state: req.body.state,
+            owner: req.body.owner
         });
         await request.save();
         res.status(201).send({
@@ -189,7 +192,8 @@ requests.post('/requests', [requestsValidation, requestsDateValidation, requests
     }
 });
 
-requests.patch('/requests/:id', [requestsStateValidation, checkToken], async (req, res) => {
+requests.patch('/requests/:id', [requestsStateValidation, requestsOwnerValidation, checkToken], 
+    async (req, res) => {
     const {id} = req.params;
     try {
         const requestExists = await RequestsModel.findById(id);

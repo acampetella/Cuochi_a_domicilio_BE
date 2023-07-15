@@ -49,6 +49,10 @@ const RequestSchema = new Schema({
     state: {
         type: String,
         required: true
+    },
+    owner: {
+        type: String,
+        required: true
     }
 }, {
     timestamps: true, strict: true
