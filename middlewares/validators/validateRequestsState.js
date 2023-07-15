@@ -36,6 +36,9 @@ const checkValue = (value) => {
         case "confirmed":
             result = true;
             break;
+        case "unconfirmed":
+            result = true;
+            break;
         default:
             result = false;
     }

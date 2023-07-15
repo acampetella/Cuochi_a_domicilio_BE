@@ -19,7 +19,7 @@ export const requestsOwnerValidation = (req, res, next) => {
 };
 
 const checkValue = (value) => {
-    if (value === 'user' || value === 'cook') {
+    if (value === 'user' || value === 'cook' || value === 'nobody') {
         return true;
     }
     return false;
