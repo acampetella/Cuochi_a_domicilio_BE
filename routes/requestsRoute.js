@@ -11,7 +11,7 @@ import checkToken from '../middlewares/token/verifyToken.js';
 
 const requests = express.Router();
 
-requests.get('/requests', async (req, res) => {
+requests.get('/requests', checkToken, async (req, res) => {
     const { page = 1, pageSize = 3} = req.query;
     try {
         const requests = await RequestsModel.find()
@@ -38,7 +38,7 @@ requests.get('/requests', async (req, res) => {
 
 });
 
-requests.get('/requests/:id', async (req, res) => {
+requests.get('/requests/:id', checkToken, async (req, res) => {
     const {id} = req.params;
     try {
         const request = await RequestsModel.findById(id)
@@ -58,7 +58,7 @@ requests.get('/requests/:id', async (req, res) => {
 
 });
 
-requests.get('/requests/byUserId/:userId', async (req, res) => {
+requests.get('/requests/byUserId/:userId', checkToken, async (req, res) => {
     const {userId} = req.params;
     const { page = 1, pageSize = 3} = req.query;
     try {
@@ -93,7 +93,7 @@ requests.get('/requests/byUserId/:userId', async (req, res) => {
 
 });
 
-requests.get('/requests/byCookId/:cookId', async (req, res) => {
+requests.get('/requests/byCookId/:cookId', checkToken, async (req, res) => {
     const {cookId} = req.params;
     const { page = 1, pageSize = 3} = req.query;
     try {
@@ -129,7 +129,7 @@ requests.get('/requests/byCookId/:cookId', async (req, res) => {
 });
 
 requests.post('/requests', [requestsValidation, requestsDateValidation, requestsFromValidation, 
-    requestsToValidation, requestsStateValidation], async (req, res) => {
+    requestsToValidation, requestsStateValidation, checkToken], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).send({
@@ -189,7 +189,7 @@ requests.post('/requests', [requestsValidation, requestsDateValidation, requests
     }
 });
 
-requests.patch('/requests/:id', [requestsStateValidation], async (req, res) => {
+requests.patch('/requests/:id', [requestsStateValidation, checkToken], async (req, res) => {
     const {id} = req.params;
     try {
         const requestExists = await RequestsModel.findById(id);
@@ -215,7 +215,7 @@ requests.patch('/requests/:id', [requestsStateValidation], async (req, res) => {
 
 });
 
-requests.delete('/requests/:id', async (req, res) => {
+requests.delete('/requests/:id', checkToken, async (req, res) => {
     try {
         const {id} = req.params;
         const requestExists = await RequestsModel.findByIdAndDelete(id);
