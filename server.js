@@ -27,6 +27,7 @@ server.use('/uploads/resumes', express.static(path.join(__dirname, './uploads/re
 server.use('/uploads/avatars', express.static(path.join(__dirname, './uploads/avatars')));
 server.use('/uploads/covers', express.static(path.join(__dirname, './uploads/covers')));
 server.use('/uploads/coursesImages', express.static(path.join(__dirname, './uploads/coursesImages')));
+server.use('/uploads/foodImages', express.static(path.join(__dirname, './uploads/foodImages')));
 server.use(express.json());
 server.use(cors());
 
