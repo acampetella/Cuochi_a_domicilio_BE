@@ -12,7 +12,7 @@ const MenuSchema = new Schema(
       required: true,
     },
     price: {
-      type: Number,
+      type: mongoose.Decimal128,
       required: true,
     },
     courses: [
