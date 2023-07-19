@@ -34,7 +34,7 @@ users.get('/users', checkToken, async (req, res) => {
 });
 
 //recupero uno specifico utente
-users.get('/users/:id', checkToken, async (req, res) => {
+users.get('/users/:id', async (req, res) => {
     try {
         const {id} = req.params;
         const userExists = await UsersModel.findById(id);
