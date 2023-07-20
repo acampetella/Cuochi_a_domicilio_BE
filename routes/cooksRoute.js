@@ -36,6 +36,32 @@ cooks.get('/cooks', async (req, res) => {
     }
 });
 
+//restituzione di tutti i cuochi
+cooks.get('/cooks/available', async (req, res) => {
+    const { page = 1, pageSize = 20} = req.query;
+    try {
+        const cooks = await CooksModel.find({available: true})
+        .populate('user', 'firstName lastName birthDate email avatar cover phones')
+        .populate('menus')
+        .limit(pageSize)
+        .skip((page - 1) * pageSize);
+
+        const cooksCount = await CooksModel.count();
+        res.status(200).send({
+            count: cooksCount,
+            currentPage: Number(page),
+            totalPages: Math.ceil(cooksCount / Number(pageSize)),
+            statusCode: 200,
+            cooks
+        });
+    } catch (error) {
+        res.status(500).send({
+            message: 'internal server error',
+            statusCode: 500
+        });
+    }
+});
+
 //restituzione di un singolo cuoco
 cooks.get('/cooks/:id', async (req, res) => {
     try {

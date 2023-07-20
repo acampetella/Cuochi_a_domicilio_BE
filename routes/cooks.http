@@ -4,6 +4,11 @@ GET http://localhost:5050/cooks
 
 #######
 
+GET http://localhost:5050/cooks/available
+
+
+#######
+
 GET http://localhost:5050/cooks/64997ab6c6005351d3dc333c
 
 #######
